@@ -67,12 +67,12 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
     },
 };
 app.use(session(sessionConfig));
+
 app.use(flash());
 
 app.use(passport.initialize());
