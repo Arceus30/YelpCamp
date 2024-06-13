@@ -90,12 +90,10 @@ const scriptSrcUrls = [
 const styleSrcUrls = [
     "https://cdn.jsdelivr.net",
     "https://api.mapbox.com/",
-    "https://kit-free.fontawesome.com/",
     "https://api.tiles.mapbox.com/",
-    "https://fonts.googleapis.com/",
-    "https://use.fontawesome.com/",
 ];
 const connectSrcUrls = [
+    "https://ka-f.fontawesome.com/",
     "https://api.mapbox.com/",
     "https://a.tiles.mapbox.com/",
     "https://b.tiles.mapbox.com/",
