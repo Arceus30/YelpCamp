@@ -67,7 +67,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production",
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
     },
@@ -82,7 +82,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    console.log("req.user:", req.user);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
@@ -90,7 +89,6 @@ app.use((req, res, next) => {
     if (req.originalUrl != "/login") {
         req.session.returnTo = req.originalUrl;
     }
-    console.log("res.locals:", res.locals);
     next();
 });
 
