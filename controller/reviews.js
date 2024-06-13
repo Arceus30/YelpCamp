@@ -10,7 +10,7 @@ const createNewReview = async (req, res, next) => {
         }
         const { review } = req.body;
         const newReview = new Review(review);
-        review.author = res.locals.currentUser;
+        newReview.author = res.locals.currentUser;
         campground.reviews.push(newReview);
         await Promise.all([campground.save(), newReview.save()]);
         req.flash("success", "Review submitted successfully");
