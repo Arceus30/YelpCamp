@@ -1,0 +1,25 @@
+<link
+    href="/stylesheets/toastr.css"
+    rel="stylesheet"
+    type="text/css"
+    crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="/stylesheets/flash.css" crossorigin="anonymous" />
+<script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    crossorigin="anonymous"
+></script>
+<script src="/javascripts/toastr.js" crossorigin="anonymous"></script>
+
+<script>
+    const successJSON = JSON.stringify("<%=success%>");
+    const errorJSON = JSON.stringify("<%=error%>");
+    const warnJSON = JSON.stringify("<%=warn%>");
+    window.msgJSON = {
+        successJSON,
+        errorJSON,
+        warnJSON,
+    };
+</script>
+
+<script src="/javascripts/flashNotif.js" crossorigin="anonymous"></script>

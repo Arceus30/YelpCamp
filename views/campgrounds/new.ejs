@@ -1,0 +1,97 @@
+<%layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/greyBG.css" crossorigin="anonymous" />
+<div class="row">
+    <h1 class="text-center">Add Campground</h1>
+    <div class="col-6 offset-md-3">
+        <form
+            action="/campgrounds"
+            method="POST"
+            class="needs-validation"
+            novalidate
+            enctype="multipart/form-data"
+        >
+            <div class="mb-3">
+                <label for="title" class="form-label">Title: </label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="campground[title]"
+                    required
+                />
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter the title</div>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location: </label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="location"
+                    name="campground[location]"
+                    required
+                />
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter the location</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label"
+                    >Description:
+                </label>
+                <textarea
+                    class="form-control"
+                    id="description"
+                    name="campground[description]"
+                    required
+                ></textarea>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter a description</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Price: </label>
+                <div class="input-group">
+                    <span class="input-group-text">₹</span>
+                    <input
+                        type="number"
+                        class="form-control"
+                        aria-label="Charges"
+                        placeholder="0.00"
+                        step=".01"
+                        name="campground[price]"
+                        required
+                        min="0"
+                    />
+                </div>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter the price</div>
+            </div>
+            <div class="input-group mb-3">
+                <input
+                    type="file"
+                    class="form-control"
+                    id="inputGroupFile02"
+                    multiple
+                    required
+                    accept=".jpg,.jpeg,.webp,.png"
+                />
+                <label
+                    class="input-group-text rounded-end"
+                    for="inputGroupFile02"
+                    tabindex="0"
+                    role="button"
+                    >Upload Image(s)...</label
+                >
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter a image</div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success">
+                    Add Campground
+                </button>
+            </div>
+        </form>
+        <div class="my-2">
+            <a href="/campgrounds">Back to all Campgrounds</a>
+        </div>
+    </div>
+</div>

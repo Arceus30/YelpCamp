@@ -1,0 +1,118 @@
+<%layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/greyBG.css" crossorigin="anonymous" />
+<div class="row">
+    <h1 class="text-center">Edit Campground</h1>
+    <div class="col-6 offset-md-3">
+        <form
+            action="/campgrounds/<%=campground._id%>?_method=PUT"
+            method="POST"
+            class="needs-validation"
+            novalidate
+            enctype="multipart/form-data"
+        >
+            <div class="mb-3">
+                <label for="title" class="form-label">Title: </label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="campground[title]"
+                    value="<%=campground.title%>"
+                    required
+                />
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter the title</div>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location: </label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="location"
+                    name="campground[location]"
+                    value="<%=campground.location%>"
+                    required
+                />
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter the location</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label"
+                    >Description:
+                </label>
+                <textarea
+                    class="form-control"
+                    id="description"
+                    name="campground[description]"
+                    required
+                >
+<%=campground.description%></textarea
+                >
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter a description</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Price: </label>
+                <div class="input-group">
+                    <span class="input-group-text">₹</span>
+                    <input
+                        type="number"
+                        class="form-control"
+                        aria-label="Charges"
+                        placeholder="0.00"
+                        value="<%=campground.price%>"
+                        name="campground[price]"
+                        step=".01"
+                        min="0"
+                        required
+                    />
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter the price</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group mb-3">
+                    <input
+                        type="file"
+                        name="images"
+                        accept=".jpg,.jpeg,.png,.webp"
+                        multiple
+                        required
+                        class="form-control"
+                        id="inputGroupFile02"
+                    />
+                    <label
+                        class="input-group-text rounded-end"
+                        for="inputGroupFile02"
+                        role="button"
+                        tabindex="0"
+                        >Add more image(s)...</label
+                    >
+                </div>
+                <% campground.images.forEach((img,i) => { %>
+                <img
+                    src="<%=img.thumbnail%>"
+                    class="img-thumbnail"
+                    alt=""
+                    crossorigin="anonymous"
+                />
+                <div class="form-check-inline">
+                    <input
+                        type="checkbox"
+                        value="<%=img.filename%>"
+                        name="deleteImages[]"
+                        id="image-<%=i%>"
+                    />
+                </div>
+                <label for="image-<%=i%>">Delete?</label>
+                <% }) %>
+            </div>
+            <button type="submit" class="btn btn-success">
+                Edit Campground
+            </button>
+        </form>
+        <div class="my-2">
+            <a href="/campgrounds/<%=campground._id%>">Back</a>
+        </div>
+    </div>
+</div>
