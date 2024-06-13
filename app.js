@@ -12,6 +12,7 @@ const methodOverride = require("method-override");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const { User } = require("./models");
+const MongoStore = require("connect-mongo");
 
 // Routes
 const { campgroundsRoutes, reviewRoutes, userRoutes } = require("./routes");
@@ -46,8 +47,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 const secret = process.env.SECRET;
-
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret,
+    },
+});
 const sessionConfig = {
+    store,
+    name: "session",
     secret,
     resave: false,
     saveUninitialized: true,
