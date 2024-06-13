@@ -13,6 +13,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const { User } = require("./models");
 const MongoStore = require("connect-mongo");
+const mongoSanitize = require("express-mongo-sanitize");
 
 // Routes
 const { campgroundsRoutes, reviewRoutes, userRoutes } = require("./routes");
@@ -45,7 +46,11 @@ app.use(express.static(path.join(__dirname, "public")));
 // Parser for requests other than GET
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-
+app.use(
+    mongoSanitize({
+        replaceWith: "_",
+    })
+);
 const secret = process.env.SECRET;
 const store = MongoStore.create({
     mongoUrl: dbUrl,

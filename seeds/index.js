@@ -38,9 +38,9 @@ const seedDB = async () => {
 
     const user = new User({ username, email });
     const registeredUser = await User.register(user, password);
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 200; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
-        const price = Math.floor(Math.random() * 29) + 100;
+        const price = Math.floor(Math.random() * 100) + 1000;
 
         // Image URL to be uploaded to Cloudinary
         const imageUrl = `https://picsum.photos/300/200?random=${i}`;
@@ -83,5 +83,5 @@ seedDB()
         console.log("Connection Closed");
     })
     .catch((e) => {
-        console.log(`Error: ${e.message}`);
+        console.log(`Error 1: ${e.message}`);
     });
