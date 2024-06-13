@@ -16,10 +16,9 @@ router
         campgroundsController.createNewCampground
     );
 
-router.route("/new").get(
-    // usersMiddleware.isLoggedIn,
-    campgroundsController.renderNew
-);
+router
+    .route("/new")
+    .get(usersMiddleware.isLoggedIn, campgroundsController.renderNew);
 
 router
     .route("/:id")

@@ -12,11 +12,11 @@ ImageSchema.virtual("thumbnail").get(function () {
 });
 
 const opts = { toJSON: { virtuals: true } };
+
 const CampgroundSchema = new Schema(
     {
         title: String,
-        price: Number,
-        description: String,
+        images: [ImageSchema],
         geometry: {
             type: {
                 type: String,
@@ -28,18 +28,19 @@ const CampgroundSchema = new Schema(
                 required: true,
             },
         },
+        price: Number,
+        description: String,
         location: String,
-        images: [ImageSchema],
+        author: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+        },
         reviews: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Review",
             },
         ],
-        author: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-        },
         date: { type: Date, default: Date.now() },
     },
     opts
