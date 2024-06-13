@@ -90,6 +90,7 @@ app.use((req, res, next) => {
     if (req.originalUrl != "/login") {
         req.session.returnTo = req.originalUrl;
     }
+    console.log(res.locals.currentUser);
     next();
 });
 
