@@ -16,8 +16,8 @@ const validateReview = (req, res, next) => {
 };
 
 const isReviewAuthor = async (req, res, next) => {
-    const { id } = req.params;
-    const review = await Review.findById(id);
+    const { reviewId } = req.params;
+    const review = await Review.findById(reviewId);
     if (!review.author.equals(res.locals.currentUser._id)) {
         req.flash(
             "error",
