@@ -2,28 +2,24 @@ const { registerSchema, loginSchema } = require("../schema");
 const ExpressError = require("../utility/ExpressError");
 
 const validateRegister = (req, res, next) => {
-    try {
-        const { error } = registerSchema.validate(req.body);
-        if (error) {
-            const msg = error.details.map((el) => el.message).join(",");
-            throw new ExpressError(400, msg);
-        }
-        next();
-    } catch (e) {
-        next(e);
+    const { error } = registerSchema.validate(req.body, {
+        abortEarly: false,
+    });
+    if (error) {
+        const msg = error.details.map((el) => el.message).join(",");
+        req.flash("error", msg);
+        return res.redirect("/register");
     }
+    next();
 };
 const validateLogin = (req, res, next) => {
-    try {
-        const { error } = loginSchema.validate(req.body);
-        if (error) {
-            const msg = error.details.map((el) => el.message).join(",");
-            throw new ExpressError(400, msg);
-        }
-        next();
-    } catch (e) {
-        next(e);
+    const { error } = loginSchema.validate(req.body, { abortEarly: false });
+    if (error) {
+        const msg = error.details.map((el) => el.message).join(",");
+        req.flash("error", msg);
+        return res.redirect("/login");
     }
+    next();
 };
 
 const isLoggedIn = async (req, res, next) => {
