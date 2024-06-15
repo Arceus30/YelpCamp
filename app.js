@@ -133,6 +133,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.formData = req.flash("formData");
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.warn = req.flash("warn");

@@ -1,7 +1,8 @@
 const { User } = require("../models");
 
 const renderRegister = (req, res, next) => {
-    res.render("users/register");
+    const formData = req.flash("formData")[0] || {};
+    res.render("users/register", { formData });
 };
 
 const register = async (req, res, next) => {
@@ -18,12 +19,17 @@ const register = async (req, res, next) => {
         });
     } catch (e) {
         req.flash("error", e.message);
+        req.flash("formData", {
+            username: req.body.username,
+            email: req.body.email,
+        });
         return res.redirect("/register");
     }
 };
 
 const renderLogin = (req, res, next) => {
-    res.render("users/login");
+    const formData = req.flash("formData")[0] || {};
+    res.render("users/login", { formData });
 };
 
 const login = (req, res) => {

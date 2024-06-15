@@ -8,6 +8,10 @@ const validateRegister = (req, res, next) => {
     if (error) {
         const msg = error.details.map((el) => el.message).join(",");
         req.flash("error", msg);
+        req.flash("formData", {
+            username: req.body.username,
+            email: req.body.email,
+        });
         return res.redirect("/register");
     }
     next();
@@ -17,6 +21,10 @@ const validateLogin = (req, res, next) => {
     if (error) {
         const msg = error.details.map((el) => el.message).join(",");
         req.flash("error", msg);
+        req.flash("formData", {
+            username: req.body.username,
+            email: req.body.email,
+        });
         return res.redirect("/login");
     }
     next();

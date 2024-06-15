@@ -34,7 +34,7 @@ const seedDB = async () => {
 
     const username = "keshav",
         email = "keshavkhandelwal30@gmail.com",
-        password = "keshav";
+        password = "Keshav@123";
 
     const user = new User({ username, email });
     const registeredUser = await User.register(user, password);

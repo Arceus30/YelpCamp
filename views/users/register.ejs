@@ -1,4 +1,4 @@
-<% layout('layouts/boilerplate')%>
+<% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/greyBG.css" crossorigin="anonymous" />
 <div
     class="container d-flex justify-content-center align-items-center mt-xxl-5"
@@ -22,8 +22,8 @@
                     >
                         <div class="mb-3">
                             <label for="username" class="form-label"
-                                >Username:
-                            </label>
+                                >Username:</label
+                            >
                             <input
                                 type="text"
                                 class="form-control"
@@ -32,6 +32,7 @@
                                 required
                                 autocomplete="username"
                                 autofocus
+                                value="<%= formData.username || '' %>"
                             />
                             <div class="valid-feedback">Looks good!</div>
                             <div class="invalid-feedback">
@@ -40,15 +41,14 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label"
-                                >Email:
-                            </label>
+                            <label for="email" class="form-label">Email:</label>
                             <input
                                 type="email"
                                 class="form-control"
                                 id="email"
                                 name="email"
                                 required
+                                value="<%= formData.email || '' %>"
                             />
                             <div class="valid-feedback">Looks good!</div>
                             <div class="invalid-feedback">
@@ -58,8 +58,8 @@
 
                         <div class="mb-3">
                             <label for="password" class="form-label"
-                                >Password:
-                            </label>
+                                >Password:</label
+                            >
                             <input
                                 type="password"
                                 class="form-control"
@@ -70,7 +70,11 @@
                                 pattern="^(?!.*['\"&])(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{7,32}$"
                             />
                             <div class="invalid-feedback">
-                                Password must be 7-32 characters long, include at least one uppercase letter, one lowercase letter, one special character, one digit, and cannot contain single quotes, double quotes, or &.
+                                Password must be 7-32 characters long, include
+                                at least one uppercase letter, one lowercase
+                                letter, one special character, one digit, and
+                                cannot contain single quotes, double quotes, or
+                                &.
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success btn-block">
