@@ -1,7 +1,7 @@
 const { User } = require("../models");
 
 const renderRegister = (req, res, next) => {
-    const formData = req.flash("formData")[0] || {};
+    const formData = res.locals.formData[0] || {};
     res.render("users/register", { formData });
 };
 
@@ -28,7 +28,7 @@ const register = async (req, res, next) => {
 };
 
 const renderLogin = (req, res, next) => {
-    const formData = req.flash("formData")[0] || {};
+    const formData = res.locals.formData[0] || {};
     res.render("users/login", { formData });
 };
 

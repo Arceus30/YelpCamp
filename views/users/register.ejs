@@ -22,8 +22,8 @@
                     >
                         <div class="mb-3">
                             <label for="username" class="form-label"
-                                >Username: <%=formData.username%> </label
-                            >
+                                >Username: <%=formData.username%>
+                            </label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -67,7 +67,7 @@
                                 name="password"
                                 required
                                 autocomplete="current-password"
-                                pattern="^(?!.*['\"&])(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{7,32}$"
+                                pattern="^(?!.*['\x22\x26])(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,32}$"
                             />
                             <div class="invalid-feedback">
                                 Password must be 7-32 characters long, include
