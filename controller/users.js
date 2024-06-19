@@ -1,10 +1,12 @@
 const { User } = require("../models");
 
+// render signup form
 const renderRegister = (req, res, next) => {
     const formData = res.locals.formData[0] || {};
     res.render("users/register", { formData });
 };
 
+// signup
 const register = async (req, res, next) => {
     try {
         const { email, username, password } = req.body;
@@ -27,11 +29,13 @@ const register = async (req, res, next) => {
     }
 };
 
+// render signin form
 const renderLogin = (req, res, next) => {
     const formData = res.locals.formData[0] || {};
     res.render("users/login", { formData });
 };
 
+// signin
 const login = (req, res) => {
     req.flash("success", "Welcome Back");
     const redirectUrl = res.locals.returnTo || "/campgrounds";
@@ -39,6 +43,7 @@ const login = (req, res) => {
     res.redirect(redirectUrl);
 };
 
+// signout
 const logout = (req, res, next) => {
     req.logout((err) => {
         if (err) {

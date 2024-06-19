@@ -47,12 +47,17 @@ app.use(express.static(path.join(__dirname, "public")));
 // Parser for requests other than GET
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
+// sanitize any mongo syntax and replaces it with _
 app.use(
     mongoSanitize({
         replaceWith: "_",
     })
 );
+
 const secret = process.env.SECRET;
+
+// Mongo Store creation
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
@@ -60,6 +65,8 @@ const store = MongoStore.create({
         secret,
     },
 });
+
+// Session Management
 const sessionConfig = {
     store,
     name: "session",
@@ -68,17 +75,20 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
+        // secure: true,
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
     },
 };
 app.use(session(sessionConfig));
 
+// Flash Notification
 app.use(flash());
 
+// adds security headers
 app.use(helmet());
 
+// allowed scripts
 const scriptSrcUrls = [
     "https://cdn.jsdelivr.net",
     "https://api.mapbox.com/",
@@ -87,11 +97,13 @@ const scriptSrcUrls = [
     "https://api.tiles.mapbox.com/",
     "https://cdnjs.cloudflare.com/",
 ];
+// allowed styles
 const styleSrcUrls = [
     "https://cdn.jsdelivr.net",
     "https://api.mapbox.com/",
     "https://api.tiles.mapbox.com/",
 ];
+// can make network requests to, including AJAX requests, WebSocket connections, and fetch requests
 const connectSrcUrls = [
     "https://ka-f.fontawesome.com/",
     "https://api.mapbox.com/",
@@ -99,38 +111,45 @@ const connectSrcUrls = [
     "https://b.tiles.mapbox.com/",
     "https://events.mapbox.com/",
 ];
-const fontSrcUrls = [];
+// allowed font urls
+const fontSrcUrls = ["https://ka-f.fontawesome.com/"];
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
+            // default policies to load sites
             defaultSrc: [],
+            // valid sources to make network requests
             connectSrc: ["'self'", ...connectSrcUrls],
+            // valid sources to request javascripts
             scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            // valid sources to request styles
             styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            // valid sources to load web workers
             workerSrc: ["'self'", "blob:"],
+            // valid sources to load plugins
             objectSrc: [],
+            // valid sources to load images
             imgSrc: [
                 "'self'",
                 "blob:",
                 "data:",
-                `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`, //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
+                `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`,
                 "https://images.unsplash.com/",
             ],
-            fontSrc: [
-                "https://ka-f.fontawesome.com/",
-                "'self'",
-                ...fontSrcUrls,
-            ],
+            // valid sources to load fonts
+            fontSrc: ["'self'", ...fontSrcUrls],
         },
     })
 );
 
+// set up passport authentication
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// flash notifications stored in local storage
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.formData = req.flash("formData");

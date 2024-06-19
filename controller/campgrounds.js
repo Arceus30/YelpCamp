@@ -4,6 +4,7 @@ const mbxGeoCoding = require("@mapbox/mapbox-sdk/services/geocoding-v6");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geoCoder = mbxGeoCoding({ accessToken: mapBoxToken });
 
+// all campgrounds controller
 const index = async (req, res, next) => {
     try {
         const campgrounds = await Campground.find({});
@@ -13,10 +14,12 @@ const index = async (req, res, next) => {
     }
 };
 
+// render new campground form controller
 const renderNew = (req, res) => {
     res.render("campgrounds/new");
 };
 
+// create new campground controller
 const createNewCampground = async (req, res, next) => {
     try {
         const { campground } = req.body;
@@ -43,6 +46,7 @@ const createNewCampground = async (req, res, next) => {
     }
 };
 
+// show specific campground controller
 const showCampground = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -56,6 +60,7 @@ const showCampground = async (req, res, next) => {
     }
 };
 
+// render campground edit form controller
 const renderEdit = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -67,6 +72,7 @@ const renderEdit = async (req, res, next) => {
     }
 };
 
+// campground edit controller
 const editCampground = async (req, res, next) => {
     const { id } = req.params;
     const { campground, deleteImages } = req.body;
@@ -105,6 +111,7 @@ const editCampground = async (req, res, next) => {
     }
 };
 
+// delete campground controller
 const deleteCampground = async (req, res, next) => {
     try {
         const { id } = req.params;

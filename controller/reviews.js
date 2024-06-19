@@ -1,6 +1,7 @@
 const { Review, Campground } = require("../models");
 const ExpressError = require("../utility/ExpressError");
 
+// create new review
 const createNewReview = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -21,6 +22,7 @@ const createNewReview = async (req, res, next) => {
     }
 };
 
+// delete review
 const deleteReview = async (req, res, next) => {
     try {
         const { id, reviewId } = req.params;
